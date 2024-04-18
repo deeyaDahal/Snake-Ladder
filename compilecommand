@@ -1,0 +1,1 @@
+clang src/*.c -I lib/ -o "bin/build_osx" -L lib/ -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL lib/libraylib.a

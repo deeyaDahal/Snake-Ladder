@@ -1,0 +1,60 @@
+Here are some notes that I made while trying to get it to work for hours a few weeks back. I ended up not using the VS code debugger to launch it, but rather compile and launch commands from the terminal. Make sure to adjust the file names and parameters so it works for you. You don’t need the json files for this method.
+
+Hope it helps! :)
+
+Raylib Notes:
+
+To get lib/include files clone/download Raylib from Github: https://github.com/raysan5/raylib
+
+Extract zip and then navigate into src of Raylib through terminal, then use make command: This compiles Raylib and creates some files that will be very important to include into your project structure:
+
+Copy:
+
+libraylib.a
+raylib.h
+raymath.h
+Into the lib folder or split them up between lib and include (both will work, just be sure to specify this in your project compilation)
+
+To compile from terminal with a project structure like the following:
+
+-bin
+
+-include •raylib.h •raymath.h
+
+-lib •libraylib.a
+
+-src •my_app.c
+
+(my_app is the compiled c file)
+
+Terminal compile comamnd Ray-Proj:
+
+clang -I include/ -L lib/ -lraylib -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL lib/libraylib.a src/my_app.c -o my_app
+
+Launch command:
+
+./my_app
+
+Compile command with creating a build bin folder and a build_osx file within:
+
+clang -I include/ -L lib/ -lraylib -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL lib/libraylib.a src/*.c -o "bin/build_osx"
+
+Launch commands:
+
+cd bin ./build_osx
+
+This next part is only for if you have a project structure without an include folder, instead all header files and libraylib.a are included in lib:
+
+Raylib-5.0.0 template
+
+Compile command:
+
+clang -I lib/ -L lib/ -lraylib -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL lib/libraylib.a src/main.c -o main
+
+Compile command with creating a build in bin folder:
+
+clang src/*.c -I lib/ -o "bin/build_osx" -L lib/ -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL lib/libraylib.a
+
+Launch build_osx:
+
+cd bin ./build_osx
